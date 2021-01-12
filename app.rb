@@ -69,12 +69,8 @@ post '/visit' do
     datetime: 'Enter date and time'
   }
 
-  input_info.each do |key, value|
-    if params[key] == ''
-      @error = input_info[key]
-      return erb :visit
-    end  
-  end
+  @error = input_info.select { |key, _| params[key] == '' }.values.join(', ')
+  return erb :visit if @error != ''
 
   erb "#{@username} #{@phone} #{@datetime} #{@barber} #{@color}"
 end
