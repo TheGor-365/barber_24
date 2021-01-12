@@ -63,9 +63,17 @@ post '/visit' do
   @barber = params[:barber]
   @color = params[:color]
 
-  if @username == ''
-    @error = 'Enter name'
-    return erb :visit
+  input_info = {
+    username: 'Enter name',
+    phone: 'Enter phone',
+    datetime: 'Enter date and time'
+  }
+
+  input_info.each do |key, value|
+    if params[key] == ''
+      @error = input_info[key]
+      return erb :visit
+    end  
   end
 
   erb "#{@username} #{@phone} #{@datetime} #{@barber} #{@color}"
