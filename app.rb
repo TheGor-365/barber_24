@@ -44,6 +44,7 @@ get '/secure/place' do
 end
 
 get '/about' do
+  @error = 'something wrong'
   erb :about
 end
 
@@ -61,6 +62,11 @@ post '/visit' do
   @datetime = params[:datetime]
   @barber = params[:barber]
   @color = params[:color]
+
+  if @username == ''
+    @error = 'Enter name'
+    return erb :visit
+  end
 
   erb "#{@username} #{@phone} #{@datetime} #{@barber} #{@color}"
 end
